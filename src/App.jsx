@@ -9,6 +9,7 @@ import CodeSummarization from "./components/CodeSummarization";
 import LandingPage from "./components/LandingPage";
 import NLPinRegionalLLanguage from "./components/NLPinRegionalLLanguage";
 import PdfScrapingandSummarization from "./components/PdfScrapingandSummarization";
+import GoveranceProcess from "./components/GoveranceProcess";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -21,9 +22,10 @@ function App() {
         <Card />
         <WebScarpingandSummarization />
         <PdfScrapingandSummarization />
-        <ContentModeration />
         <CodeSummarization />
+        <ContentModeration />
         <NLPinRegionalLLanguage />
+        <GoveranceProcess/>
       </main>
     </>
   );

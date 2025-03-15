@@ -54,7 +54,8 @@ const WebScrapingAndSummarization = () => {
             {/* Image */}
             <img
               className="h-auto max-w-xs rounded-[5%]" // Rounded border
-              src={WebScrap} alt="image description"
+              src={WebScrap}
+              alt="image description"
             />
 
             {/* Title & Subtitle */}
@@ -83,26 +84,31 @@ const WebScrapingAndSummarization = () => {
                 1
               </span>
               <span className="mt-2">
-                <h3 className="text-xl font-medium">User Info</h3>
-                <p className="text-sm">Step details here</p>
+                <h3 className="text-xl font-medium">Enter website URL</h3>
+                <p className="text-sm">Input URL of the target website</p>
               </span>
             </li>
-            <li className="flex flex-col items-center text-gray-500 dark:text-gray-400 text-center">
-              <span className="flex items-center justify-center w-12 h-12 border border-gray-500 rounded-full text-lg dark:border-gray-400">
+            <li className="flex flex-col items-center text-blue-600 dark:text-blue-500 text-center">
+              <span className="flex items-center justify-center w-12 h-12 border border-blue-600 rounded-full text-lg dark:border-blue-500">
                 2
               </span>
               <span className="mt-2">
-                <h3 className="text-xl font-medium">Company Info</h3>
-                <p className="text-sm">Step details here</p>
+                <h3 className="text-xl font-medium">Process website</h3>
+                <p className="text-sm">
+                  AI Scrapes and Summarizes 
+                  data from the site
+                </p>
               </span>
             </li>
-            <li className="flex flex-col items-center text-gray-500 dark:text-gray-400 text-center">
-              <span className="flex items-center justify-center w-12 h-12 border border-gray-500 rounded-full text-lg dark:border-gray-400">
+            <li className="flex flex-col items-center text-blue-600 dark:text-blue-500 text-center">
+              <span className="flex items-center justify-center w-12 h-12 border border-blue-600 rounded-full text-lg dark:border-blue-500">
                 3
               </span>
               <span className="mt-2">
-                <h3 className="text-xl font-medium">Processing</h3>
-                <p className="text-sm">Step details here</p>
+                <h3 className="text-xl font-medium">Website summary</h3>
+                <p className="text-sm">
+                  Organized and structured data summary
+                </p>
               </span>
             </li>
           </ol>

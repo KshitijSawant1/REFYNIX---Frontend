@@ -4,6 +4,7 @@ import Code from "../assets/Page_Images/CodePageImage.png";
 import Content from "../assets/Page_Images/ContentPageImage.png";
 import NLPLanguage from "../assets/Page_Images/NLPLanguagePageImage.png";
 import PdfScrap from "../assets/Page_Images/PdfScrapPageImage.png";
+import GovProcess from "../assets/Page_Images/GoveranceProcessPageImage.png";
 
 const Card = () => {
   return (
@@ -36,20 +37,20 @@ const Card = () => {
       {/* Cards Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-5 w-full max-w-6xl place-items-center justify-center">
         {/* Card 1 */}
-        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+        <div className=" h-140 max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
           <a href="#">
             <img className="rounded-t-lg" src={WebScrap} alt="Technology" />
           </a>
           <div className="p-5">
             <a href="#">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Noteworthy technology acquisitions 2021
+                AI for Web Scraping & Summarization
               </h5>
             </a>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s
+              AI automates web data extraction, transforming unstructured
+              content into actionable structured data for research, analysis,
+              and market insights, saving time and improving accuracy.
             </p>
             <a
               href="#"
@@ -75,20 +76,20 @@ const Card = () => {
           </div>
         </div>
         {/* Card 2 */}
-        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 h-140">
           <a href="#">
             <img className="rounded-t-lg" src={PdfScrap} alt="Technology" />
           </a>
           <div className="p-5">
             <a href="#">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Noteworthy technology acquisitions 2021
+                AI for PDF Scraping & Summarization
               </h5>
             </a>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s
+              AI extracts key insights from PDFs and provides concise summaries,
+              allowing users to quickly digest crucial information, saving time
+              and highlighting important details.
             </p>
             <a
               href="#"
@@ -114,20 +115,20 @@ const Card = () => {
           </div>
         </div>{" "}
         {/* Card 3 */}
-        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+        <div className="h-140 max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
           <a href="#">
             <img className="rounded-t-lg" src={Code} alt="Technology" />
           </a>
           <div className="p-5">
             <a href="#">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Noteworthy technology acquisitions 2021
+                AI for Code Summarization
               </h5>
             </a>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s
+              AI generates concise summaries of complex code, making it easier
+              for developers to understand key functions and logic, improving
+              collaboration and reducing review time.
             </p>
             <a
               href="#"
@@ -153,20 +154,20 @@ const Card = () => {
           </div>
         </div>{" "}
         {/* Card 4 */}
-        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+        <div className="h-140 max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
           <a href="#">
             <img className="rounded-t-lg" src={Content} alt="Technology" />
           </a>
           <div className="p-5">
             <a href="#">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Noteworthy technology acquisitions 2021
+                AI for Content Moderation
               </h5>
             </a>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s
+              AI for content moderation filters harmful content like hate speech
+              and spam, ensuring a safe and respectful online environment for
+              social platforms and online communities.
             </p>
             <a
               href="#"
@@ -192,20 +193,20 @@ const Card = () => {
           </div>
         </div>{" "}
         {/* Card 5 */}
-        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+        <div className=" h-140 max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
           <a href="#">
             <img className="rounded-t-lg" src={NLPLanguage} alt="Technology" />
           </a>
           <div className="p-5">
             <a href="#">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Noteworthy technology acquisitions 2021
+                AI for NLP in Regional Language
               </h5>
             </a>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s
+              AI translates between regional languages accurately, preserving
+              meaning and context, helping businesses and content creators
+              communicate effectively with multilingual and regional audiences.
             </p>
             <a
               href="#"
@@ -231,24 +232,20 @@ const Card = () => {
           </div>
         </div>{" "}
         {/* Card 7 */}
-        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+        <div className="h-140 max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
           <a href="#">
-            <img
-              className="rounded-t-lg"
-              src="https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?cs=srgb&dl=pexels-bri-schneiter-28802-346529.jpg&fm=jpg"
-              alt="Technology"
-            />
+            <img className="rounded-t-lg" src={GovProcess} alt="Technology" />
           </a>
           <div className="p-5">
             <a href="#">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Noteworthy technology acquisitions 2021
+                AI for Governace Process
               </h5>
             </a>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s
+              AI simplifies governance document review, providing concise
+              summaries for improved decision-making, compliance, and
+              productivity.
             </p>
             <a
               href="#"

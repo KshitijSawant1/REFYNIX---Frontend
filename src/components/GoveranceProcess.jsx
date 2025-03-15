@@ -1,7 +1,8 @@
 import React, { useState, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import PdfScrap from "../assets/Page_Images/PdfScrapPageImage.png";
+import GovProcess from "../assets/Page_Images/GoveranceProcessPageImage.png";
+
 const markdownData = `
 ### Web Scraping & Summarization
 
@@ -29,7 +30,7 @@ This AI tool extracts and summarizes web content efficiently. It can scrape data
 
 💡 *Enhance your workflow with automated web scraping and AI-powered summarization!*
 `;
-const PdfScrapingandSummarization = () => {
+const GoveranceProcess = () => {
   const [copied, setCopied] = useState(false);
   const markdownRef = useRef(null);
 
@@ -52,25 +53,26 @@ const PdfScrapingandSummarization = () => {
             {/* Image */}
             <img
               className="h-auto max-w-xs rounded-[5%]" // Rounded border
-              src={PdfScrap}
+              src={GovProcess}
               alt="image description"
             />
 
             {/* Title & Subtitle */}
             <div>
               <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-                AI for PDF{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r to-blue-600 from-gray-400">
-                  Scraping & Summarization
+                AI for{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-purple-700">
+                  Governace Process
                 </span>
               </h1>
 
               <p className="text-lg text-gray-600 dark:text-gray-300 mt-4 max-w-2xl">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the l
+                AI for governance process streamlines document analysis by
+                extracting and summarizing key insights from complex governance
+                documents. With AI’s ability to process large volumes of data
+                quickly, the system minimizes manual effort, ensuring accurate
+                and timely processing of governance tasks, improving overall
+                productivity and decision efficiency.
               </p>
             </div>
           </div>
@@ -82,8 +84,10 @@ const PdfScrapingandSummarization = () => {
                 1
               </span>
               <span className="mt-2">
-                <h3 className="text-xl font-medium">Enter Pdf URL</h3>
-                <p className="text-sm">Enter Hosted Pdf document URL </p>
+                <h3 className="text-xl font-medium">Enter User Query </h3>
+                <p className="text-sm">
+                  User asks about passport application details.
+                </p>
               </span>
             </li>
             <li className="flex flex-col items-center text-blue-600 dark:text-blue-500 text-center">
@@ -91,9 +95,9 @@ const PdfScrapingandSummarization = () => {
                 2
               </span>
               <span className="mt-2">
-                <h3 className="text-xl font-medium">Process PDF</h3>
+                <h3 className="text-xl font-medium">Process eligibility</h3>
                 <p className="text-sm">
-                  AI extracts relevant content from the document
+                  AI verifies eligibility and document requirements.
                 </p>
               </span>
             </li>
@@ -102,9 +106,11 @@ const PdfScrapingandSummarization = () => {
                 3
               </span>
               <span className="mt-2">
-                <h3 className="text-xl font-medium">Summarized content</h3>
+                <h3 className="text-xl font-medium">
+                  Generate Summary
+                </h3>
                 <p className="text-sm">
-                  AI provides a concise document summary
+                  Provides application summary.
                 </p>
               </span>
             </li>
@@ -134,7 +140,7 @@ const PdfScrapingandSummarization = () => {
                 type="search"
                 id="search"
                 className="block w-full p-5 pl-14 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Enter Website URL"
+                placeholder="Enter Goverance Realted Query"
                 required
               />
             </div>
@@ -240,4 +246,4 @@ const PdfScrapingandSummarization = () => {
   );
 };
 
-export default PdfScrapingandSummarization;
+export default GoveranceProcess;

@@ -4,6 +4,7 @@ import KS from "../assets/Contributors/KS.png";
 import MZ from "../assets/Contributors/MZ.png";
 import JD from "../assets/Contributors/JD.png";
 import PK from "../assets/Contributors/PK.png";
+import LandingPageImage from "../assets/Page_Images/LandingPageIamge.png";
 const LandingPage = () => {
   return (
     <>
@@ -82,7 +83,7 @@ const LandingPage = () => {
         {/* Image */}
         <img
           alt="Refinx banner"
-          src="https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?cs=srgb&dl=pexels-bri-schneiter-28802-346529.jpg&fm=jpg"
+          src={LandingPageImage}
           className="relative z-10 h-full w-full object-cover sm:h-[calc(100%-2rem)] sm:self-end sm:rounded-ss-[30px] md:h-[calc(100%-4rem)] md:rounded-ss-[60px]"
         />
       </section>
@@ -282,7 +283,7 @@ const LandingPage = () => {
                   {/* Buttons Section */}
                   <div className="flex flex-col gap-2">
                     <a
-                      href="#"
+                      href="https://github.com/KshitijSawant1"
                       className="flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-[#24292F] rounded-lg hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30"
                     >
                       <svg
@@ -302,7 +303,7 @@ const LandingPage = () => {
                     </a>
 
                     <a
-                      href="#"
+                      href="https://www.linkedin.com/in/kshitijksawant/"
                       className="flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-[#0A66C2] rounded-lg hover:bg-[#0A66C2]/90 focus:ring-4 focus:outline-none focus:ring-[#0A66C2]/50 dark:focus:ring-[#0A66C2]/55"
                     >
                       <svg
@@ -345,7 +346,7 @@ const LandingPage = () => {
                   {/* Buttons Section */}
                   <div className="flex flex-col gap-2">
                     <a
-                      href="#"
+                      href="https://github.com/maazshaikh2079"
                       className="flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-[#24292F] rounded-lg hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30"
                     >
                       <svg

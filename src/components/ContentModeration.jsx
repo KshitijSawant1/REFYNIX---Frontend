@@ -61,35 +61,52 @@ const ContentModeration = () => {
               </h1>
 
               <p className="text-lg text-gray-600 dark:text-gray-300 mt-4 max-w-2xl">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s.
+                AI for content moderation filters harmful content like hate
+                speech, spam, and inappropriate material, ensuring a safe and
+                respectful online environment for social platforms, communities,
+                businesses, and organizations globally, preventing misuse and
+                harm while maintaining user trust and safety. It ensures that
+                content aligns with platform guidelines, preventing reputation
+                damage.
               </p>
             </div>
           </div>
 
-          {/* Step-by-Step Guide */}
+          {/* Step-by-Step Guide (Now with More Space) */}
           <ol className="w-full max-w-4xl flex flex-col items-center justify-center space-y-6 sm:flex-row sm:justify-center sm:space-x-12 sm:space-y-0 mt-12">
-            {["User Info", "Company Info", "Processing"].map((step, index) => (
-              <li
-                key={index}
-                className="flex flex-col items-center text-gray-500 dark:text-gray-400 text-center"
-              >
-                <span
-                  className={`flex items-center justify-center w-12 h-12 border ${
-                    index === 0
-                      ? "border-blue-600 text-blue-600"
-                      : "border-gray-500"
-                  } rounded-full text-lg dark:border-gray-400`}
-                >
-                  {index + 1}
-                </span>
-                <span className="mt-2">
-                  <h3 className="text-xl font-medium">{step}</h3>
-                  <p className="text-sm">Step details here</p>
-                </span>
-              </li>
-            ))}
+            <li className="flex flex-col items-center text-blue-600 dark:text-blue-500 text-center">
+              <span className="flex items-center justify-center w-12 h-12 border border-blue-600 rounded-full text-lg dark:border-blue-500">
+                1
+              </span>
+              <span className="mt-2">
+                <h3 className="text-xl font-medium">
+                  Select platform, Write post
+                </h3>
+                <p className="text-sm">Choose platform and compose content</p>
+              </span>
+            </li>
+            <li className="flex flex-col items-center text-blue-600 dark:text-blue-500 text-center">
+              <span className="flex items-center justify-center w-12 h-12 border border-blue-600 rounded-full text-lg dark:border-blue-500">
+                2
+              </span>
+              <span className="mt-2">
+                <h3 className="text-xl font-medium">Process Post</h3>
+                <p className="text-sm">
+                  AI analyzes and extracts key information
+                </p>
+              </span>
+            </li>
+            <li className="flex flex-col items-center text-blue-600 dark:text-blue-500 text-center">
+              <span className="flex items-center justify-center w-12 h-12 border border-blue-600 rounded-full text-lg dark:border-blue-500">
+                3
+              </span>
+              <span className="mt-2">
+                <h3 className="text-xl font-medium"> Optimized post-results</h3>
+                <p className="text-sm">
+                  Filtered and safe content ready for publishing
+                </p>
+              </span>
+            </li>
           </ol>
 
           {/* Social Media Buttons & Refresh Button */}

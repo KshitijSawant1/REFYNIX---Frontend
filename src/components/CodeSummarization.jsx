@@ -127,28 +127,41 @@ const CodeSummarization = () => {
             </div>
           </div>
 
-          {/* Step-by-Step Guide */}
+          {/* Step-by-Step Guide (Now with More Space) */}
           <ol className="w-full max-w-4xl flex flex-col items-center justify-center space-y-6 sm:flex-row sm:justify-center sm:space-x-12 sm:space-y-0 mt-12">
-            {["User Info", "Company Info", "Processing"].map((step, index) => (
-              <li
-                key={index}
-                className="flex flex-col items-center text-gray-500 dark:text-gray-400 text-center"
-              >
-                <span
-                  className={`flex items-center justify-center w-12 h-12 border ${
-                    index === 0
-                      ? "border-blue-600 text-blue-600"
-                      : "border-gray-500"
-                  } rounded-full text-lg dark:border-gray-400`}
-                >
-                  {index + 1}
-                </span>
-                <span className="mt-2">
-                  <h3 className="text-xl font-medium">{step}</h3>
-                  <p className="text-sm">Step details here</p>
-                </span>
-              </li>
-            ))}
+            <li className="flex flex-col items-center text-blue-600 dark:text-blue-500 text-center">
+              <span className="flex items-center justify-center w-12 h-12 border border-blue-600 rounded-full text-lg dark:border-blue-500">
+                1
+              </span>
+              <span className="mt-2">
+                <h3 className="text-xl font-medium">Select Code language</h3>
+                <p className="text-sm">
+                  Choose programming language, input code
+                </p>
+              </span>
+            </li>
+            <li className="flex flex-col items-center text-blue-600 dark:text-blue-500 text-center">
+              <span className="flex items-center justify-center w-12 h-12 border border-blue-600 rounded-full text-lg dark:border-blue-500">
+                2
+              </span>
+              <span className="mt-2">
+                <h3 className="text-xl font-medium">Process code</h3>
+                <p className="text-sm">
+                  AI analyzes and extracts key information
+                </p>
+              </span>
+            </li>
+            <li className="flex flex-col items-center text-blue-600 dark:text-blue-500 text-center">
+              <span className="flex items-center justify-center w-12 h-12 border border-blue-600 rounded-full text-lg dark:border-blue-500">
+                3
+              </span>
+              <span className="mt-2">
+                <h3 className="text-xl font-medium">Optimized code-results</h3>
+                <p className="text-sm">
+                  Generated summary of code structure and functions
+                </p>
+              </span>
+            </li>
           </ol>
 
           {/* Programming Language Selection */}
