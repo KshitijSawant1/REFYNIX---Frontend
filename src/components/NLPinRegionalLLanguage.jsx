@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
+import NLPLanguage from "../assets/Page_Images/NLPLanguagePageImage.png";
 const markdownData = `
 ### Web Scraping & Summarization
 This AI tool extracts and summarizes web content efficiently.
@@ -44,7 +45,7 @@ const NLPinRegionalLanguage = () => {
             {/* Image */}
             <img
               className="h-auto max-w-xs rounded-[5%]"
-              src="https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?cs=srgb&dl=pexels-bri-schneiter-28802-346529.jpg&fm=jpg"
+              src={NLPLanguage}
               alt="image description"
             />
 

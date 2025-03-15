@@ -1,5 +1,9 @@
 import React from "react";
 import RefynixLogo from "../assets//logos/RLogoBluerm.png";
+import KS from "../assets/Contributors/KS.png";
+import MZ from "../assets/Contributors/MZ.png";
+import JD from "../assets/Contributors/JD.png";
+import PK from "../assets/Contributors/PK.png";
 const LandingPage = () => {
   return (
     <>
@@ -259,7 +263,7 @@ const LandingPage = () => {
                 <a href="#">
                   <img
                     className="h-auto w-full rounded-t-lg transition-all duration-300 filter grayscale hover:grayscale-0"
-                    src="https://media.licdn.com/dms/image/v2/D4D03AQGXKAVe_VfLbQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1712479589905?e=1747267200&v=beta&t=Z29bLUy8Q3y2jSNn3MQ5XHoRtbLvna_MwBU4r0Fpmfk"
+                    src={KS}
                     alt="Profile Cover"
                   />
                 </a>
@@ -322,7 +326,7 @@ const LandingPage = () => {
                 <a href="#">
                   <img
                     className="h-auto w-full rounded-t-lg transition-all duration-300 filter grayscale hover:grayscale-0"
-                    src="https://media.licdn.com/dms/image/v2/D4D03AQGXKAVe_VfLbQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1712479589905?e=1747267200&v=beta&t=Z29bLUy8Q3y2jSNn3MQ5XHoRtbLvna_MwBU4r0Fpmfk"
+                    src={MZ}
                     alt="Profile Cover"
                   />
                 </a>
@@ -331,7 +335,7 @@ const LandingPage = () => {
                 <div className="p-5 text-center">
                   <a href="#">
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                      Kshitij K Sawant
+                      Maaz A Shaikh
                     </h5>
                   </a>
                   <p className="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400">
@@ -385,7 +389,7 @@ const LandingPage = () => {
                 <a href="#">
                   <img
                     className="h-auto w-full rounded-t-lg transition-all duration-300 filter grayscale hover:grayscale-0"
-                    src="https://media.licdn.com/dms/image/v2/D4D03AQGXKAVe_VfLbQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1712479589905?e=1747267200&v=beta&t=Z29bLUy8Q3y2jSNn3MQ5XHoRtbLvna_MwBU4r0Fpmfk"
+                    src={JD}
                     alt="Profile Cover"
                   />
                 </a>
@@ -394,7 +398,7 @@ const LandingPage = () => {
                 <div className="p-5 text-center">
                   <a href="#">
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                      Kshitij K Sawant
+                      Jash V Damania
                     </h5>
                   </a>
                   <p className="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400">
@@ -448,7 +452,7 @@ const LandingPage = () => {
                 <a href="#">
                   <img
                     className="h-auto w-full rounded-t-lg transition-all duration-300 filter grayscale hover:grayscale-0"
-                    src="https://media.licdn.com/dms/image/v2/D4D03AQGXKAVe_VfLbQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1712479589905?e=1747267200&v=beta&t=Z29bLUy8Q3y2jSNn3MQ5XHoRtbLvna_MwBU4r0Fpmfk"
+                    src={PK}
                     alt="Profile Cover"
                   />
                 </a>
@@ -457,7 +461,7 @@ const LandingPage = () => {
                 <div className="p-5 text-center">
                   <a href="#">
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                      Kshitij K Sawant
+                      Prathmesh Kulkarni
                     </h5>
                   </a>
                   <p className="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400">

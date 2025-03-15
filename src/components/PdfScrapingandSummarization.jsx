@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-
+import PdfScrap from "../assets/Page_Images/PdfScrapPageImage.png";
 const markdownData = `
 ### Web Scraping & Summarization
 
@@ -52,7 +52,7 @@ const PdfScrapingandSummarization = () => {
             {/* Image */}
             <img
               className="h-auto max-w-xs rounded-[5%]" // Rounded border
-              src="https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?cs=srgb&dl=pexels-bri-schneiter-28802-346529.jpg&fm=jpg"
+              src={PdfScrap}
               alt="image description"
             />
 

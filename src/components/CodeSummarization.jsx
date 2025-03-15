@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-
+import Code from "../assets/Page_Images/CodePageImage.png";
 const CodeSummarization = () => {
   const [copied, setCopied] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
@@ -105,7 +105,7 @@ const CodeSummarization = () => {
           <div className="w-full flex flex-col sm:flex-row items-center justify-center text-center sm:text-left space-y-6 sm:space-y-0 sm:space-x-8">
             <img
               className="h-auto max-w-xs rounded-[5%]"
-              src="https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?cs=srgb&dl=pexels-bri-schneiter-28802-346529.jpg&fm=jpg"
+              src={Code}
               alt="image description"
             />
             {/* Title & Subtitle */}

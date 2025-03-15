@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import Content from "../assets/Page_Images/ContentPageImage.png";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 const markdownData = `
@@ -46,7 +47,7 @@ const ContentModeration = () => {
             {/* Image */}
             <img
               className="h-auto max-w-xs rounded-[5%]"
-              src="https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?cs=srgb&dl=pexels-bri-schneiter-28802-346529.jpg&fm=jpg"
+              src={Content}
               alt="image description"
             />
 

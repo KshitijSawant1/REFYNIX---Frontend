@@ -17,12 +17,13 @@ function App() {
     <>
       <Navbar />
       <main className="max-w-screen-2xl container mx-auto">
-        {/* <LandingPage/>
-        <WebScarpingandSummarization/>
-        <ContentModeration/>
-        <CodeSummarization/>
-        <NLPinRegionalLLanguage /> */}
-        <PdfScrapingandSummarization/>
+        <LandingPage />
+        <Card />
+        <WebScarpingandSummarization />
+        <PdfScrapingandSummarization />
+        <ContentModeration />
+        <CodeSummarization />
+        <NLPinRegionalLLanguage />
       </main>
     </>
   );
