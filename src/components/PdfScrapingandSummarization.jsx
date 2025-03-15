@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-
 const markdownData = `
 ### Web Scraping & Summarization
 
@@ -30,7 +29,7 @@ This AI tool extracts and summarizes web content efficiently. It can scrape data
 
 💡 *Enhance your workflow with automated web scraping and AI-powered summarization!*
 `;
-const WebScrapingAndSummarization = () => {
+const PdfScrapingandSummarization = () => {
   const [copied, setCopied] = useState(false);
   const markdownRef = useRef(null);
 
@@ -60,8 +59,8 @@ const WebScrapingAndSummarization = () => {
             {/* Title & Subtitle */}
             <div>
               <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
-                AI for Web{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r to-blue-600 from-red-400">
+                AI for PDF{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r to-blue-600 from-gray-400">
                   Scraping & Summarization
                 </span>
               </h1>
@@ -237,4 +236,4 @@ const WebScrapingAndSummarization = () => {
   );
 };
 
-export default WebScrapingAndSummarization;
+export default PdfScrapingandSummarization;

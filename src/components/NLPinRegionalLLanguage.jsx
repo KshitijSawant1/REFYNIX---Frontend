@@ -52,7 +52,7 @@ const NLPinRegionalLanguage = () => {
             <div>
               <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
                 AI for{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r to-blue-600 from-violet-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r to-blue-600 from-pink-400">
                   NLP in Regional Language
                 </span>
               </h1>

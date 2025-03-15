@@ -8,6 +8,7 @@ import ContentModeration from "./components/ContentModeration";
 import CodeSummarization from "./components/CodeSummarization";
 import LandingPage from "./components/LandingPage";
 import NLPinRegionalLLanguage from "./components/NLPinRegionalLLanguage";
+import PdfScrapingandSummarization from "./components/PdfScrapingandSummarization";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -16,7 +17,12 @@ function App() {
     <>
       <Navbar />
       <main className="max-w-screen-2xl container mx-auto">
-        <NLPinRegionalLLanguage />
+        {/* <LandingPage/>
+        <WebScarpingandSummarization/>
+        <ContentModeration/>
+        <CodeSummarization/>
+        <NLPinRegionalLLanguage /> */}
+        <PdfScrapingandSummarization/>
       </main>
     </>
   );

@@ -108,16 +108,21 @@ const CodeSummarization = () => {
               src="https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?cs=srgb&dl=pexels-bri-schneiter-28802-346529.jpg&fm=jpg"
               alt="image description"
             />
+            {/* Title & Subtitle */}
             <div>
-              <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+              <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
                 AI for{" "}
-                <span className="text-blue-600 dark:text-blue-500">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r to-blue-600 from-violet-400">
                   Code Summarization
                 </span>
               </h1>
+
               <p className="text-lg text-gray-600 dark:text-gray-300 mt-4 max-w-2xl">
-                AI-powered tools help summarize code efficiently, improving
-                readability, documentation, and maintainability.
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the l
               </p>
             </div>
           </div>
