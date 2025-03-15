@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useNavigate } from "react-router-dom";
 import WebScrap from "../assets/Page_Images/WebScrapPageImage.png";
 import Code from "../assets/Page_Images/CodePageImage.png";
 import Content from "../assets/Page_Images/ContentPageImage.png";
@@ -7,13 +8,14 @@ import PdfScrap from "../assets/Page_Images/PdfScrapPageImage.png";
 import GovProcess from "../assets/Page_Images/GoveranceProcessPageImage.png";
 
 const Card = () => {
+  const navigate = useNavigate();
   return (
     <section className="relative w-full min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-blue-50 to-transparent dark:from-gray-900">
       {/* Title Section */}
       <div className="flex flex-col items-center text-center mb-10 mt-10">
-        <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
           Professional Network of{" "}
-          <span class="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">
+          <span className="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">
             AI AGENTS
           </span>
         </h1>
@@ -52,8 +54,8 @@ const Card = () => {
               content into actionable structured data for research, analysis,
               and market insights, saving time and improving accuracy.
             </p>
-            <a
-              href="#"
+            <Link
+              to="/web-scrap"
               className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Read more
@@ -72,7 +74,7 @@ const Card = () => {
                   d="M1 5h12m0 0L9 1m4 4L9 9"
                 />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
         {/* Card 2 */}
@@ -91,8 +93,8 @@ const Card = () => {
               allowing users to quickly digest crucial information, saving time
               and highlighting important details.
             </p>
-            <a
-              href="#"
+                <Link
+                  to="/pdf-scrap"
               className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Read more
@@ -111,7 +113,7 @@ const Card = () => {
                   d="M1 5h12m0 0L9 1m4 4L9 9"
                 />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>{" "}
         {/* Card 3 */}
@@ -130,8 +132,8 @@ const Card = () => {
               for developers to understand key functions and logic, improving
               collaboration and reducing review time.
             </p>
-            <a
-              href="#"
+                <Link
+                  to="/code"
               className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Read more
@@ -150,7 +152,7 @@ const Card = () => {
                   d="M1 5h12m0 0L9 1m4 4L9 9"
                 />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>{" "}
         {/* Card 4 */}
@@ -169,8 +171,8 @@ const Card = () => {
               and spam, ensuring a safe and respectful online environment for
               social platforms and online communities.
             </p>
-            <a
-              href="#"
+                <Link
+                  to="/content"
               className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Read more
@@ -189,7 +191,7 @@ const Card = () => {
                   d="M1 5h12m0 0L9 1m4 4L9 9"
                 />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>{" "}
         {/* Card 5 */}
@@ -208,8 +210,8 @@ const Card = () => {
               meaning and context, helping businesses and content creators
               communicate effectively with multilingual and regional audiences.
             </p>
-            <a
-              href="#"
+                <Link
+                  to="/language"
               className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Read more
@@ -228,10 +230,10 @@ const Card = () => {
                   d="M1 5h12m0 0L9 1m4 4L9 9"
                 />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>{" "}
-        {/* Card 7 */}
+        {/* Card 6 */}
         <div className="h-140 max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
           <a href="#">
             <img className="rounded-t-lg" src={GovProcess} alt="Technology" />
@@ -247,8 +249,8 @@ const Card = () => {
               summaries for improved decision-making, compliance, and
               productivity.
             </p>
-            <a
-              href="#"
+                <Link
+                  to="/governance"
               className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Read more
@@ -267,7 +269,7 @@ const Card = () => {
                   d="M1 5h12m0 0L9 1m4 4L9 9"
                 />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

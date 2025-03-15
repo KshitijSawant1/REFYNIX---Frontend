@@ -25,6 +25,8 @@ const NLPinRegionalLanguage = () => {
     "Select Output Language"
   );
   const languages = ["English", "Marathi", "Hindi"];
+  const [isInputDropdownOpen, setIsInputDropdownOpen] = useState(false);
+  const [isOutputDropdownOpen, setIsOutputDropdownOpen] = useState(false);
 
   const handleCopy = () => {
     if (markdownRef.current) {
@@ -73,9 +75,7 @@ const NLPinRegionalLanguage = () => {
                 1
               </span>
               <span className="mt-2">
-                <h3 className="text-xl font-medium">
-                  Select Translation From / To
-                </h3>
+                <h3 className="text-xl font-medium">Select Translation Path</h3>
                 <p className="text-sm">Choose language pair, input text</p>
               </span>
             </li>
@@ -93,9 +93,7 @@ const NLPinRegionalLanguage = () => {
                 3
               </span>
               <span className="mt-2">
-                <h3 className="text-xl font-medium">
-                  Translated text
-                </h3>
+                <h3 className="text-xl font-medium">Translated text</h3>
                 <p className="text-sm">
                   Display translated text with , ensuring context clarity
                 </p>
@@ -112,6 +110,7 @@ const NLPinRegionalLanguage = () => {
 
             <div className="relative">
               <button
+                onClick={() => setIsInputDropdownOpen(!isInputDropdownOpen)}
                 id="dropdownInputButton"
                 data-dropdown-toggle="dropdownInput"
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -136,25 +135,28 @@ const NLPinRegionalLanguage = () => {
               </button>
 
               {/* Dropdown List */}
-              <div
-                id="dropdownInput"
-                className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-md dark:bg-gray-700 absolute mt-2 min-w-max"
-              >
-                <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
-                  {languages
-                    .filter((lang) => lang !== outputLanguage)
-                    .map((lang) => (
-                      <li key={lang} onClick={() => setInputLanguage(lang)}>
-                        <a
-                          href="#"
-                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                        >
-                          {lang}
-                        </a>
-                      </li>
-                    ))}
-                </ul>
-              </div>
+              {isInputDropdownOpen && (
+                <div className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-md dark:bg-gray-700 absolute mt-2 min-w-max">
+                  <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+                    {languages
+                      .filter((lang) => lang !== outputLanguage)
+                      .map((lang) => (
+                        <li key={lang}>
+                          <button
+                            onClick={(event) => {
+                              event.preventDefault();
+                              setInputLanguage(lang);
+                              setIsInputDropdownOpen(false); // Close dropdown after selection
+                            }}
+                            className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            {lang}
+                          </button>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              )}
             </div>
 
             {/* To Language Dropdown */}
@@ -164,6 +166,7 @@ const NLPinRegionalLanguage = () => {
 
             <div className="relative">
               <button
+                onClick={() => setIsOutputDropdownOpen(!isInputDropdownOpen)}
                 id="dropdownOutputButton"
                 data-dropdown-toggle="dropdownOutput"
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -188,25 +191,28 @@ const NLPinRegionalLanguage = () => {
               </button>
 
               {/* Dropdown List */}
-              <div
-                id="dropdownOutput"
-                className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-md dark:bg-gray-700 absolute mt-2 min-w-max"
-              >
-                <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
-                  {languages
-                    .filter((lang) => lang !== inputLanguage)
-                    .map((lang) => (
-                      <li key={lang} onClick={() => setOutputLanguage(lang)}>
-                        <a
-                          href="#"
-                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                        >
-                          {lang}
-                        </a>
-                      </li>
-                    ))}
-                </ul>
-              </div>
+              {isOutputDropdownOpen && (
+                <div className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-md dark:bg-gray-700 absolute mt-2 min-w-max">
+                  <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+                    {languages
+                      .filter((lang) => lang !== inputLanguage)
+                      .map((lang) => (
+                        <li key={lang}>
+                          <button
+                            onClick={(event) => {
+                              event.preventDefault();
+                              setOutputLanguage(lang);
+                              setIsOutputDropdownOpen(false); // Close dropdown after selection
+                            }}
+                            className="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                          >
+                            {lang}
+                          </button>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              )}
             </div>
 
             {/* Refresh Button */}

@@ -10,24 +10,24 @@ import LandingPage from "./components/LandingPage";
 import NLPinRegionalLLanguage from "./components/NLPinRegionalLLanguage";
 import PdfScrapingandSummarization from "./components/PdfScrapingandSummarization";
 import GoveranceProcess from "./components/GoveranceProcess";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
+    <Router>
       <Navbar />
-      <main className="max-w-screen-2xl container mx-auto">
-        <LandingPage />
-        <Card />
-        <WebScarpingandSummarization />
-        <PdfScrapingandSummarization />
-        <CodeSummarization />
-        <ContentModeration />
-        <NLPinRegionalLLanguage />
-        <GoveranceProcess/>
-      </main>
-    </>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/card" element={<Card />} />
+        <Route path="/web-scrap" element={<WebScarpingandSummarization />} />
+        <Route path="/content" element={<ContentModeration />} />
+        <Route path="/code" element={<CodeSummarization />} />
+        <Route path="/language" element={<NLPinRegionalLLanguage />} />
+        <Route path="/pdf-scrap" element={<PdfScrapingandSummarization />} />
+        <Route path="/governance" element={<GoveranceProcess />} />
+      </Routes>
+    </Router>
   );
 }
 

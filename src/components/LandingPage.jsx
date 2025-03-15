@@ -5,7 +5,10 @@ import MZ from "../assets/Contributors/MZ.png";
 import JD from "../assets/Contributors/JD.png";
 import PK from "../assets/Contributors/PK.png";
 import LandingPageImage from "../assets/Page_Images/LandingPageIamge.png";
+import { Link, useNavigate } from "react-router-dom";
+
 const LandingPage = () => {
+  const navigate = useNavigate();
   return (
     <>
       {/* Hero Section with Fixed Gradient */}
@@ -37,6 +40,7 @@ const LandingPage = () => {
             <div className="mt-4 md:mt-8 flex justify-start">
               <button
                 type="button"
+                onClick={() => navigate("/card")}
                 className="px-6 py-3.5 text-base font-medium text-white flex items-center gap-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 animate-bounce"
               >
                 <svg
@@ -409,7 +413,7 @@ const LandingPage = () => {
                   {/* Buttons Section */}
                   <div className="flex flex-col gap-2">
                     <a
-                      href="#"
+                      href="https://github.com/Intr0vert1648"
                       className="flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-[#24292F] rounded-lg hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30"
                     >
                       <svg
@@ -429,7 +433,7 @@ const LandingPage = () => {
                     </a>
 
                     <a
-                      href="#"
+                      href="https://www.linkedin.com/in/jash-damania-a61281266/"
                       className="flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-[#0A66C2] rounded-lg hover:bg-[#0A66C2]/90 focus:ring-4 focus:outline-none focus:ring-[#0A66C2]/50 dark:focus:ring-[#0A66C2]/55"
                     >
                       <svg
@@ -472,7 +476,7 @@ const LandingPage = () => {
                   {/* Buttons Section */}
                   <div className="flex flex-col gap-2">
                     <a
-                      href="#"
+                      href="https://github.com/prathmk85"
                       className="flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-[#24292F] rounded-lg hover:bg-[#24292F]/90 focus:ring-4 focus:outline-none focus:ring-[#24292F]/50 dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30"
                     >
                       <svg
@@ -492,7 +496,7 @@ const LandingPage = () => {
                     </a>
 
                     <a
-                      href="#"
+                      href="https://www.linkedin.com/in/prathmesh-kulkarni-b7673828b/"
                       className="flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-[#0A66C2] rounded-lg hover:bg-[#0A66C2]/90 focus:ring-4 focus:outline-none focus:ring-[#0A66C2]/50 dark:focus:ring-[#0A66C2]/55"
                     >
                       <svg
@@ -520,22 +524,27 @@ const LandingPage = () => {
             <figure className="flex flex-col items-center justify-center p-8 text-center bg-white border-b border-gray-200 rounded-t-lg md:rounded-t-none md:rounded-ss-lg md:border-e dark:bg-gray-800 dark:border-gray-700">
               <blockquote className="max-w-2xl mx-auto mb-4 text-gray-500 lg:mb-8 dark:text-gray-400">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Very easy this was to integrate
+                  “It’s like having an entire team of experts in your pocket.”
                 </h3>
                 <p className="my-4">
-                  If you care for your time, I hands down would go with this."
+                  I’ve spent years sifting through data, writing reports, and
+                  summarizing endless information. This AI toolkit? It does all
+                  of that in minutes. It’s like having a team of researchers,
+                  writers, and analysts working for you 24/7. The time and
+                  energy this saves are unreal. It’s not just a tool; it’s a
+                  game-changer for anyone drowning in data.
                 </p>
               </blockquote>
               <figcaption className="flex items-center justify-center ">
                 <img
-                  className="rounded-full w-9 h-9"
+                  className="rounded-full w-15 h-15"
                   src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/karen-nelson.png"
                   alt="profile picture"
                 />
                 <div className="space-y-0.5 font-medium dark:text-white text-left rtl:text-right ms-3">
-                  <div>Bonnie Green</div>
+                  <div>Dr. Michael</div>
                   <div className="text-sm text-gray-500 dark:text-gray-400 ">
-                    Developer at Open AI
+                    Anderson, AI Researcher
                   </div>
                 </div>
               </figcaption>
@@ -543,23 +552,27 @@ const LandingPage = () => {
             <figure className="flex flex-col items-center justify-center p-8 text-center bg-white border-b border-gray-200 md:rounded-se-lg dark:bg-gray-800 dark:border-gray-700">
               <blockquote className="max-w-2xl mx-auto mb-4 text-gray-500 lg:mb-8 dark:text-gray-400">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Solid foundation for any project
+                  “Coding just got way less frustrating.”
                 </h3>
                 <p className="my-4">
-                  Designing with Figma components that can be easily translated
-                  to the utility classes of Tailwind CSS is a huge timesaver!"
+                  Every developer knows the struggle of messy, unreadable code.
+                  This AI doesn’t just clean it up—it actually makes it better.
+                  I tested it on some old projects, and wow, it felt like
+                  someone had gone in and magically made my work more efficient.
+                  If you’ve ever wished for a coding buddy who doesn’t judge
+                  your bad habits, this is it.
                 </p>
               </blockquote>
               <figcaption className="flex items-center justify-center ">
                 <img
-                  className="rounded-full w-9 h-9"
+                  className="rounded-full w-15 h-15"
                   src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/roberta-casas.png"
                   alt="profile picture"
                 />
                 <div className="space-y-0.5 font-medium dark:text-white text-left rtl:text-right ms-3">
-                  <div>Roberta Casas</div>
+                  <div> Sarah Patel, </div>
                   <div className="text-sm text-gray-500 dark:text-gray-400">
-                    Lead designer at Dropbox
+                    Lead Software Engineer at DevTech
                   </div>
                 </div>
               </figcaption>
@@ -567,23 +580,27 @@ const LandingPage = () => {
             <figure className="flex flex-col items-center justify-center p-8 text-center bg-white border-b border-gray-200 md:rounded-es-lg md:border-b-0 md:border-e dark:bg-gray-800 dark:border-gray-700">
               <blockquote className="max-w-2xl mx-auto mb-4 text-gray-500 lg:mb-8 dark:text-gray-400">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Mindblowing workflow
+                  “I sleep better knowing this AI has my back.”
                 </h3>
                 <p className="my-4">
-                  Aesthetically, the well designed components are beautiful and
-                  will undoubtedly level up your next application."
+                  Security is something you don’t think about… until something
+                  goes horribly wrong. This AI isn’t just reactive—it
+                  proactively spots threats before they become disasters. That’s
+                  huge. It’s like having a personal cybersecurity guard watching
+                  over your data while you focus on running your business. And
+                  let’s be real, who doesn’t want that kind of peace of mind?"
                 </p>
               </blockquote>
               <figcaption className="flex items-center justify-center ">
                 <img
-                  className="rounded-full w-9 h-9"
+                  className="rounded-full w-15 h-15"
                   src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
                   alt="profile picture"
                 />
                 <div className="space-y-0.5 font-medium dark:text-white text-left rtl:text-right ms-3">
-                  <div>Jese Leos</div>
+                  <div> James Carter</div>
                   <div className="text-sm text-gray-500 dark:text-gray-400">
-                    Software Engineer at Facebook
+                    Cybersecurity Consultant
                   </div>
                 </div>
               </figcaption>
@@ -591,23 +608,26 @@ const LandingPage = () => {
             <figure className="flex flex-col items-center justify-center p-8 text-center bg-white border-gray-200 rounded-b-lg md:rounded-se-lg dark:bg-gray-800 dark:border-gray-700">
               <blockquote className="max-w-2xl mx-auto mb-4 text-gray-500 lg:mb-8 dark:text-gray-400">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  Efficient Collaborating
+                  “I never thought I’d enjoy writing social media posts.”
                 </h3>
                 <p className="my-4">
-                  You have many examples that can be used to create a fast
-                  prototype for your team."
+                  Coming up with engaging content every day is exhausting. This
+                  AI doesn’t just help—it actually makes it fun. It rewrites,
+                  optimizes, and polishes my posts so they sound better without
+                  losing my voice. For the first time, I feel like I have the
+                  upper hand on the algorithm instead of the other way around!
                 </p>
               </blockquote>
               <figcaption className="flex items-center justify-center ">
                 <img
-                  className="rounded-full w-9 h-9"
+                  className="rounded-full w-15 h-15"
                   src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png"
                   alt="profile picture"
                 />
                 <div className="space-y-0.5 font-medium dark:text-white text-left rtl:text-right ms-3">
-                  <div>Joseph McFall</div>
+                  <div> Emily Zhou </div>
                   <div className="text-sm text-gray-500 dark:text-gray-400">
-                    CTO at Google
+                    Digital Marketing Strategist
                   </div>
                 </div>
               </figcaption>
