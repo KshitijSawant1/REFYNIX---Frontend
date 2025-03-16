@@ -4,33 +4,7 @@ import remarkGfm from "remark-gfm";
 
 import WebScrap from "../assets/Page_Images/WebScrapPageImage.png";
 
-const markdownData = `
-### Web Scraping & Summarization
-
-This AI tool extracts and summarizes web content efficiently. It can scrape data from various sources and generate meaningful summaries.
-
----
-
-## **🔍 Example Output**
-\`\`\`json
-{
-  "title": "Web Scraping & Summarization",
-  "summary": "This AI tool extracts and summarizes web content efficiently.",
-  "url": "https://example.com/article"
-}
-\`\`\`
-
----
-
-### **📌 Key Features**
-- Extracts relevant text from web pages.
-- Summarizes content using AI.
-- Outputs structured data in JSON format.
-
----
-
-💡 *Enhance your workflow with automated web scraping and AI-powered summarization!*
-`;
+const markdownData = ``;
 const WebScrapingAndSummarization = () => {
   const [copied, setCopied] = useState(false);
   const markdownRef = useRef(null);
@@ -67,12 +41,13 @@ const WebScrapingAndSummarization = () => {
                 </span>
               </h1>
 
-              <p className="text-lg text-gray-600 dark:text-gray-300 mt-4 max-w-2xl">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the l
+              <p className="text-lg text-gray-600 dark:text-gray-300 mt-4 max-w-2xl text-justify">
+                AI automates web data extraction, transforming unstructured
+                content into structured, actionable data for research, analysis,
+                market insights, and competitive intelligence. It saves time,
+                improves accuracy, enhances data-driven decision-making, and
+                maximizes insights across industries like e-commerce, marketing,
+                and finance.
               </p>
             </div>
           </div>
@@ -95,8 +70,7 @@ const WebScrapingAndSummarization = () => {
               <span className="mt-2">
                 <h3 className="text-xl font-medium">Process website</h3>
                 <p className="text-sm">
-                  AI Scrapes and Summarizes 
-                  data from the site
+                  AI Scrapes and Summarizes data from the site
                 </p>
               </span>
             </li>
@@ -106,9 +80,7 @@ const WebScrapingAndSummarization = () => {
               </span>
               <span className="mt-2">
                 <h3 className="text-xl font-medium">Website summary</h3>
-                <p className="text-sm">
-                  Organized and structured data summary
-                </p>
+                <p className="text-sm">Organized and structured data summary</p>
               </span>
             </li>
           </ol>
@@ -167,6 +139,7 @@ const WebScrapingAndSummarization = () => {
               type="button"
               className="inline-flex items-center px-8 py-4 text-lg font-medium text-gray-900 bg-white border border-gray-900 rounded-lg transition duration-300 ease-in-out hover:bg-gray-200 hover:text-black focus:z-10 focus:ring-2 focus:ring-gray-400 focus:bg-gray-200 focus:text-black dark:border-white dark:text-white dark:hover:bg-gray-600 dark:hover:text-white dark:focus:bg-gray-600
     sm:px-6 sm:py-3 sm:text-base md:px-7 md:py-3 md:text-lg lg:px-8 lg:py-4 lg:text-xl"
+              onClick={() => window.location.reload()}
             >
               <svg
                 className="w-7 h-7 text-gray-800 dark:text-white mr-3 sm:w-6 sm:h-6 md:w-6 md:h-6 lg:w-7 lg:h-7"
@@ -180,29 +153,6 @@ const WebScrapingAndSummarization = () => {
               </svg>
               Reload
             </button>
-
-            {/* <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g id="SVGRepo_bgCarrier" strokeWidth="1"></g>
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                ></g>
-                <g id="SVGRepo_iconCarrier">
-                  {" "}
-                  <path
-                    d="M21 12C21 16.9706 16.9706 21 12 21C9.69494 21 7.59227 20.1334 6 18.7083L3 16M3 12C3 7.02944 7.02944 3 12 3C14.3051 3 16.4077 3.86656 18 5.29168L21 8M3 21V16M3 16H8M21 3V8M21 8H16"
-                    stroke="#000000"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  ></path>{" "}
-                </g>
-              </svg> */}
           </div>
         </div>
       </section>

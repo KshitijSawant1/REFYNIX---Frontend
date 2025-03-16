@@ -1,101 +1,84 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Code from "../assets/Page_Images/CodePageImage.png";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+const genAI = new GoogleGenerativeAI("AIzaSyD4rZax_2OFJmxT7BhOXnz8FuDZzwHER6c");
+const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+const generationConfig = {
+  temperature: 1,
+  topP: 0.95,
+  topK: 40,
+  maxOutputTokens: 8192,
+  responseMimeType: "text/plain",
+};
+
 const CodeSummarization = () => {
   const [copied, setCopied] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(null);
+  const [userInput, setUserInput] = useState("");
+  const [markdownData, setMarkdownData] = useState("");
   const markdownRef = useRef(null);
 
+  // Function to Copy Generated Content
   const handleCopy = () => {
     if (markdownRef.current) {
-      navigator.clipboard.writeText(markdownRef.current.innerText);
+      const textToCopy =
+        markdownRef.current.innerText || markdownRef.current.textContent;
+      navigator.clipboard.writeText(textToCopy);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
   };
 
-  const markdownData = `
-  ### The C Code Explanation
+  // Function to Handle Form Submission
+  const handleSubmit = useCallback(
+    async (event) => {
+      event.preventDefault(); // Prevent page refresh
 
-  The C code takes an array of integers as input from the user, sorts it using the **Bubble Sort algorithm**, and prints the sorted array.
-
-  ---
-
-  ## **📌 Formatted Code:**
-  \`\`\`c
-  #include <stdio.h>
-
-  int main() {
-      int a[100], n, i, j, temp;
-      printf("Enter size: ");
-      scanf("%d", &n);
-      printf("Enter elements: ");
-      for (i = 0; i < n; i++)
-          scanf("%d", &a[i]);
-      for (i = 0; i < n - 1; i++)
-          for (j = 0; j < n - 1; j++)
-              if (a[j] > a[j + 1]) {
-                  temp = a[j];
-                  a[j] = a[j + 1];
-                  a[j + 1] = temp;
-              }
-      printf("Sorted array: ");
-      for (i = 0; i < n; i++)
-          printf("%d ", a[i]);
-      return 0;
-  }
-  \`\`\`
-
-  ---
-
-  ## **🚀 Optimized Code:**
-  \`\`\`c
-  #include <stdio.h>
-
-  int main() {
-      int a[100], n, i, j, temp;
-      printf("Enter size: ");
-      scanf("%d", &n);
-      printf("Enter elements: ");
-      for (i = 0; i < n; i++)
-          scanf("%d", &a[i]);
-
-      for (i = 0; i < n - 1; i++) {
-          for (j = 0; j < n - 1 - i; j++) {
-              if (a[j] > a[j + 1]) {
-                  temp = a[j];
-                  a[j] = a[j + 1];
-                  a[j + 1] = temp;
-              }
-          }
+      if (!selectedLanguage || !userInput.trim()) {
+        alert("Please select a language and enter code.");
+        return;
       }
 
-      printf("Sorted array: ");
-      for (i = 0; i < n; i++)
-          printf("%d ", a[i]);
-      return 0;
-  }
-  \`\`\`
+      try {
+        const chatSession = model.startChat({ generationConfig, history: [] });
+        const result = await chatSession.sendMessage(
+          `Language: ${selectedLanguage}
+        Code:
+        """${userInput}"""
+        
+        **Summary:** Provide a concise summary of the code.
+        
+        **Formatted Code:**
+        Reformat the code properly while keeping the same logic.
+        
+        **Optimized Code:**
+        Optimize the code with better time & space complexity.
+        
+        **Optimization Explanation:**
+        Explain optimizations in bullet points.
+        `
+        );
 
-  ---
+        // ✅ Fix: Correctly Retrieve Response
+        if (result?.response) {
+          const responseText = await result.response.text();
+          setMarkdownData(responseText);
+        } else {
+          setMarkdownData("Error: No response received.");
+        }
+      } catch (error) {
+        console.error("Error generating response:", error);
+        alert("An error occurred while processing the request.");
+      }
+    },
+    [selectedLanguage, userInput]
+  );
+  // Dependencies
 
-  ### **🛠️ Optimization:**
-  - The inner loop's **upper bound** is changed from \`n-1\` to \`n-1-i\`.
-  - This is because after each pass of the outer loop, the **largest \`i\` elements** are already in their correct sorted positions at the end of the array.
-  - **This reduces unnecessary comparisons**, making the sorting process **more efficient**.
-
-  ---
-
-  💡 *This optimization helps improve the algorithm's efficiency, especially for larger arrays!*
-  `;
-
-  //   const markdownData = `
-  // \`\`\`js
-  // const hello = 'Hello, World!';
-  // console.log(hello);
-  // \`\`\`
-  // `;
   return (
     <>
       <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 to-transparent dark:from-gray-900 ">
@@ -117,12 +100,12 @@ const CodeSummarization = () => {
                 </span>
               </h1>
 
-              <p className="text-lg text-gray-600 dark:text-gray-300 mt-4 max-w-2xl">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the l
+              <p className="text-lg text-gray-600 dark:text-gray-300 mt-4 max-w-2xl text-justify">
+                AI generates concise summaries of complex code, making it easier
+                for developers to understand key functions, structures, and
+                logic, improving collaboration, maintenance, speeding up code
+                reviews, enhancing project efficiency, reducing errors, ensuring
+                quality, and accelerating development timelines.
               </p>
             </div>
           </div>
@@ -205,6 +188,7 @@ const CodeSummarization = () => {
               className="relative inline-flex items-center justify-center p-0.5 text-sm font-medium text-gray-900 
       rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 
       hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
+      onClick={() => window.location.reload()}
             >
               <span
                 className="relative flex items-center gap-2 px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 
@@ -230,16 +214,17 @@ const CodeSummarization = () => {
 
           {/* Input Section */}
           <div className="container mx-auto max-w-6xl bg-transparent dark:bg-transparent shadow-none rounded-lg flex flex-col items-center mt-6 text-center">
-            <form className="w-full">
+            <form className="w-full" onSubmit={handleSubmit}>
               <div className="w-full rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 border border-gray-300 p-4">
                 <label htmlFor="codeInput" className="sr-only">
                   Write Code in Selected Language
                 </label>
                 <textarea
-                  id="codeInput"
                   rows="12"
-                  className="w-full h-[300px] px-4 py-2 text-sm text-gray-900 bg-white border border-gray-400 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400 rounded-md resize-none"
+                  className="w-full h-[300px] px-4 py-2 text-sm text-gray-900 bg-white border border-gray-400 dark:bg-gray-800 focus:ring-0 dark:text-white rounded-md resize-none"
                   placeholder="Write your code here..."
+                  value={userInput}
+                  onChange={(e) => setUserInput(e.target.value)}
                   required
                 ></textarea>
                 <button
@@ -262,7 +247,7 @@ const CodeSummarization = () => {
               </div>
 
               {/* Render Markdown Output */}
-              <div className="w-full bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-300 text-left">
+              <div className="w-full bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-300 text-justify">
                 <div
                   ref={markdownRef}
                   className="whitespace-pre-wrap break-words prose max-w-none text-gray-800 dark:text-gray-200 overflow-hidden"
@@ -272,7 +257,6 @@ const CodeSummarization = () => {
                   </ReactMarkdown>
                 </div>
               </div>
-
               {/* Copy Button */}
               <div className="flex justify-end mt-2">
                 <button

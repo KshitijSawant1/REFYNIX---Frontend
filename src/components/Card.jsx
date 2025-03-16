@@ -6,6 +6,7 @@ import Content from "../assets/Page_Images/ContentPageImage.png";
 import NLPLanguage from "../assets/Page_Images/NLPLanguagePageImage.png";
 import PdfScrap from "../assets/Page_Images/PdfScrapPageImage.png";
 import GovProcess from "../assets/Page_Images/GoveranceProcessPageImage.png";
+import AgentBuild from "../assets/Page_Images/AgentBuilderPageImage.png";
 
 const Card = () => {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ const Card = () => {
                 AI for Web Scraping & Summarization
               </h5>
             </a>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 text-justify">
               AI automates web data extraction, transforming unstructured
               content into actionable structured data for research, analysis,
               and market insights, saving time and improving accuracy.
@@ -88,13 +89,13 @@ const Card = () => {
                 AI for PDF Scraping & Summarization
               </h5>
             </a>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 text-justify">
               AI extracts key insights from PDFs and provides concise summaries,
               allowing users to quickly digest crucial information, saving time
               and highlighting important details.
             </p>
-                <Link
-                  to="/pdf-scrap"
+            <Link
+              to="/pdf-scrap"
               className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Read more
@@ -127,13 +128,13 @@ const Card = () => {
                 AI for Code Summarization
               </h5>
             </a>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 text-justify">
               AI generates concise summaries of complex code, making it easier
               for developers to understand key functions and logic, improving
               collaboration and reducing review time.
             </p>
-                <Link
-                  to="/code"
+            <Link
+              to="/code"
               className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Read more
@@ -166,13 +167,13 @@ const Card = () => {
                 AI for Content Moderation
               </h5>
             </a>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 text-justify">
               AI for content moderation filters harmful content like hate speech
               and spam, ensuring a safe and respectful online environment for
               social platforms and online communities.
             </p>
-                <Link
-                  to="/content"
+            <Link
+              to="/content"
               className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Read more
@@ -205,13 +206,13 @@ const Card = () => {
                 AI for NLP in Regional Language
               </h5>
             </a>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 text-justify">
               AI translates between regional languages accurately, preserving
               meaning and context, helping businesses and content creators
               communicate effectively with multilingual and regional audiences.
             </p>
-                <Link
-                  to="/language"
+            <Link
+              to="/language"
               className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Read more
@@ -233,7 +234,7 @@ const Card = () => {
             </Link>
           </div>
         </div>{" "}
-        {/* Card 6 */}
+        {/* Card 7 */}
         <div className="h-140 max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
           <a href="#">
             <img className="rounded-t-lg" src={GovProcess} alt="Technology" />
@@ -244,13 +245,60 @@ const Card = () => {
                 AI for Governace Process
               </h5>
             </a>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 text-justify">
               AI simplifies governance document review, providing concise
               summaries for improved decision-making, compliance, and
               productivity.
             </p>
-                <Link
-                  to="/governance"
+            <Link
+              to="/governance"
+              className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Read more
+              <svg
+                className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 14 10"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M1 5h12m0 0L9 1m4 4L9 9"
+                />
+              </svg>
+            </Link>
+          </div>
+        </div>
+        {/* Card 6 */}
+        <div className="h-140 max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+          <a href="#">
+            <img className="rounded-t-lg" src={AgentBuild} alt="Technology" />
+          </a>
+          <div className="p-5 flex flex-col items-start">
+            {/* Future Aspect Badge */}
+            <span className="bg-blue-100 text-blue-800 text-lg font-semibold px-3 py-1 rounded-md dark:bg-blue-200 dark:text-blue-800 mb-3">
+              Future Aspect
+            </span>
+
+            {/* Title */}
+            <a href="#">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                Build your AI Agent
+              </h5>
+            </a>
+
+            {/* Description */}
+            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 text-left">
+              AI for building custom agents automates workflows by processing
+              URLs, text, and images.
+            </p>
+
+            <Link
+              to="/agentbuilder"
               className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Read more

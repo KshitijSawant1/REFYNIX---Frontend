@@ -2,30 +2,27 @@ import React, { useState, useRef } from "react";
 import Content from "../assets/Page_Images/ContentPageImage.png";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-const markdownData = `
-### Web Scraping & Summarization
-This AI tool extracts and summarizes web content efficiently. It can scrape data from various sources and generate meaningful summaries.
----
-## **🔍 Example Output**
-\`\`\`json
-{
-  "title": "Web Scraping & Summarization",
-  "summary": "This AI tool extracts and summarizes web content efficiently.",
-  "url": "https://example.com/article"
-}
-\`\`\`
----
-### **📌 Key Features**
-- Extracts relevant text from web pages.
-- Summarizes content using AI.
-- Outputs structured data in JSON format.
----
-💡 *Enhance your workflow with automated web scraping and AI-powered summarization!*
-`;
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+const apiKey = "AIzaSyD4rZax_2OFJmxT7BhOXnz8FuDZzwHER6c";
+const genAI = new GoogleGenerativeAI(apiKey);
+const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+const generationConfig = {
+  temperature: 1,
+  topP: 0.95,
+  topK: 40,
+  maxOutputTokens: 8192,
+  responseMimeType: "text/plain",
+};
 
 const ContentModeration = () => {
   const [selectedPlatform, setSelectedPlatform] = useState(null);
   const [copied, setCopied] = useState(false);
+  const [userInput, setUserInput] = useState("");
+  const [markdownData, setMarkdownData] = useState(`
+`);
+
   const markdownRef = useRef(null);
 
   const handleCopy = () => {
@@ -37,6 +34,35 @@ const ContentModeration = () => {
       setTimeout(() => setCopied(false), 2000);
     }
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!userInput.trim() || !selectedPlatform) {
+      alert("Please select a platform and enter a post.");
+      return;
+    }
+
+    const chatSession = model.startChat({
+      generationConfig,
+      history: [],
+    });
+
+    try {
+      const result = await chatSession.sendMessage(
+        `Generate a ${selectedPlatform} post:\n"${userInput}"\n\nOptimize the above user-input and make it postable on the selected social media platform.\nOnly return the optimized paragraphs followed by a line break and pointers for improvement.`
+      );
+
+      // Ensure response is valid
+      const responseText =
+        result?.response?.text() || "Error: No response received.";
+      setMarkdownData(responseText);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      alert("An error occurred while processing your request.");
+    }
+  };
+
   return (
     <>
       <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 to-transparent dark:from-gray-900">
@@ -60,14 +86,12 @@ const ContentModeration = () => {
                 </span>{" "}
               </h1>
 
-              <p className="text-lg text-gray-600 dark:text-gray-300 mt-4 max-w-2xl">
+              <p className="text-lg text-gray-600 dark:text-gray-300 mt-4 max-w-2xl text-justify">
                 AI for content moderation filters harmful content like hate
                 speech, spam, and inappropriate material, ensuring a safe and
                 respectful online environment for social platforms, communities,
                 businesses, and organizations globally, preventing misuse and
-                harm while maintaining user trust and safety. It ensures that
-                content aligns with platform guidelines, preventing reputation
-                damage.
+                harm while maintaining user trust and safety. damage.
               </p>
             </div>
           </div>
@@ -144,6 +168,7 @@ const ContentModeration = () => {
               className="relative inline-flex items-center justify-center p-0.5 text-sm font-medium text-gray-900 
       rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 
       hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
+              onClick={() => window.location.reload()}
             >
               <span
                 className="relative flex items-center gap-2 px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 
@@ -168,17 +193,16 @@ const ContentModeration = () => {
           </div>
 
           {/* Post Input Form */}
-          <form className="w-full max-w-3xl mt-6">
+          <form className="w-full max-w-3xl mt-6" onSubmit={handleSubmit}>
             <div className="w-full mb-4 border border-gray-300 rounded-lg bg-white shadow-sm dark:bg-gray-800 dark:border-gray-700">
               <div className="px-4 py-2 rounded-t-lg dark:bg-gray-800">
                 <label htmlFor="postInput" className="sr-only">
                   Your Post
                 </label>
                 <textarea
-                  id="postInput"
-                  rows="4"
-                  className="w-full p-4 text-sm text-gray-900 bg-white border-0 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white dark:placeholder-gray-400"
+                  className="w-full p-4 border rounded-lg"
                   placeholder="Write a Post..."
+                  onChange={(e) => setUserInput(e.target.value)}
                   required
                 ></textarea>
               </div>
@@ -204,7 +228,7 @@ const ContentModeration = () => {
           </div>
 
           {/* Render Markdown Output */}
-          <div className="w-full bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-300 text-left">
+          <div className="w-full bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-300 text-justify">
             <div
               ref={markdownRef}
               className="whitespace-pre-wrap break-words prose max-w-none text-gray-800 dark:text-gray-200 overflow-hidden"

@@ -1,8 +1,12 @@
 import React, { useState, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-
 import NLPLanguage from "../assets/Page_Images/NLPLanguagePageImage.png";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+const apiKey = "AIzaSyD4rZax_2OFJmxT7BhOXnz8FuDZzwHER6c";
+const genAI = new GoogleGenerativeAI(apiKey);
+const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 const markdownData = `
 ### Web Scraping & Summarization
 This AI tool extracts and summarizes web content efficiently.
@@ -16,17 +20,27 @@ This AI tool extracts and summarizes web content efficiently.
 }
 \`\`\`
 `;
+const generationConfig = {
+  temperature: 1,
+  topP: 0.95,
+  topK: 40,
+  maxOutputTokens: 8192,
+  responseMimeType: "text/plain",
+};
 
 const NLPinRegionalLanguage = () => {
   const [copied, setCopied] = useState(false);
   const markdownRef = useRef(null);
+  const [isInputDropdownOpen, setIsInputDropdownOpen] = useState(false);
+  const [isOutputDropdownOpen, setIsOutputDropdownOpen] = useState(false);
+
   const [inputLanguage, setInputLanguage] = useState("Select Input Language");
   const [outputLanguage, setOutputLanguage] = useState(
     "Select Output Language"
   );
   const languages = ["English", "Marathi", "Hindi"];
-  const [isInputDropdownOpen, setIsInputDropdownOpen] = useState(false);
-  const [isOutputDropdownOpen, setIsOutputDropdownOpen] = useState(false);
+  const [userInput, setUserInput] = useState("");
+  const [markdownData, setMarkdownData] = useState("");
 
   const handleCopy = () => {
     if (markdownRef.current) {
@@ -35,6 +49,55 @@ const NLPinRegionalLanguage = () => {
       navigator.clipboard.writeText(textToCopy);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
+    }
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevents page refresh
+
+    if (
+      inputLanguage === "Select Input Language" ||
+      outputLanguage === "Select Output Language"
+    ) {
+      alert("Please select both input and output languages.");
+      return;
+    }
+
+    const chatSession = model.startChat({ generationConfig, history: [] });
+
+    try {
+      const result = await chatSession.sendMessage(
+        `
+        Precondition: any line starting with '//' is an instruction for you
+        This is an ${inputLanguage} text:\n
+        \"${userInput}\"\n
+        //Leave a line
+        //give title **Summarized:**\n
+        Summarize the above text in ${inputLanguage}
+        //Leave a line
+        //give title **Explanation:**
+        Explain the above text in ${inputLanguage}
+        //Leave a line
+        //give title **Translation:**
+        Translate the above ${inputLanguage} text in ${outputLanguage}
+        //Leave a line
+        //give title **Summarization in ${outputLanguage}:**
+        Summarize the above ${inputLanguage} text in ${outputLanguage}
+        //Leave a line
+        //give title **Explanation in ${outputLanguage}:**
+        Explain the above ${inputLanguage} text in ${outputLanguage}
+        `
+      );
+
+      // Check if response contains text
+      const responseText = result?.response?.text();
+      if (!responseText) {
+        throw new Error("Received empty response from API");
+      }
+
+      setMarkdownData(responseText);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      alert("An error occurred while processing your request.");
     }
   };
 
@@ -60,10 +123,11 @@ const NLPinRegionalLanguage = () => {
                 </span>
               </h1>
 
-              <p className="text-lg text-gray-600 dark:text-gray-300 mt-4 max-w-2xl">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s.
+              <p className="text-lg text-gray-600 dark:text-gray-300 mt-4 max-w-2xl text-justify">
+                AI translates between regional languages accurately, preserving
+                meaning, tone, and context, helping businesses, content
+                creators, and users communicate effectively with multilingual,
+                regional audiences and diverse communities globally.
               </p>
             </div>
           </div>
@@ -102,7 +166,7 @@ const NLPinRegionalLanguage = () => {
           </ol>
 
           {/* Language Selection */}
-          <div className="w-full flex flex-wrap justify-center items-center gap-4 mt-6">
+          <div className="w-full flex flex-wrap justify-center items-center gap-4 mt-6 dropdown-container">
             {/* From Language Dropdown */}
             <span className="bg-blue-100 text-blue-800 text-2xl font-semibold px-2.5 py-0.5 rounded-sm dark:bg-blue-200 dark:text-blue-800">
               From:
@@ -111,15 +175,12 @@ const NLPinRegionalLanguage = () => {
             <div className="relative">
               <button
                 onClick={() => setIsInputDropdownOpen(!isInputDropdownOpen)}
-                id="dropdownInputButton"
-                data-dropdown-toggle="dropdownInput"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                type="button"
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 
+      font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
-                {inputLanguage || "Select Input Language"}
+                {inputLanguage}
                 <svg
                   className="w-2.5 h-2.5 ml-3"
-                  aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 10 6"
@@ -136,7 +197,7 @@ const NLPinRegionalLanguage = () => {
 
               {/* Dropdown List */}
               {isInputDropdownOpen && (
-                <div className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-md dark:bg-gray-700 absolute mt-2 min-w-max">
+                <div className="absolute mt-2 min-w-max z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-md dark:bg-gray-700">
                   <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
                     {languages
                       .filter((lang) => lang !== outputLanguage)
@@ -166,16 +227,13 @@ const NLPinRegionalLanguage = () => {
 
             <div className="relative">
               <button
-                onClick={() => setIsOutputDropdownOpen(!isInputDropdownOpen)}
-                id="dropdownOutputButton"
-                data-dropdown-toggle="dropdownOutput"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                type="button"
+                onClick={() => setIsOutputDropdownOpen(!isOutputDropdownOpen)}
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 
+      font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
-                {outputLanguage || "Select Output Language"}
+                {outputLanguage}
                 <svg
                   className="w-2.5 h-2.5 ml-3"
-                  aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 10 6"
@@ -192,7 +250,7 @@ const NLPinRegionalLanguage = () => {
 
               {/* Dropdown List */}
               {isOutputDropdownOpen && (
-                <div className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-md dark:bg-gray-700 absolute mt-2 min-w-max">
+                <div className="absolute mt-2 min-w-max z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-md dark:bg-gray-700">
                   <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
                     {languages
                       .filter((lang) => lang !== inputLanguage)
@@ -214,12 +272,12 @@ const NLPinRegionalLanguage = () => {
                 </div>
               )}
             </div>
-
             {/* Refresh Button */}
             <button
               className="relative inline-flex items-center justify-center p-0.5 text-sm font-medium text-gray-900 
       rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 
       hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800"
+              onClick={() => window.location.reload()}
             >
               <span
                 className="relative flex items-center gap-2 px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 
@@ -244,16 +302,18 @@ const NLPinRegionalLanguage = () => {
           </div>
 
           {/* Input Form */}
-          <form className="w-full max-w-3xl mt-6">
+          <form className="w-full max-w-3xl mt-6" onSubmit={handleSubmit}>
             <textarea
               rows="4"
-              className="w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white dark:border-gray-600"
+              className="w-full p-4 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white"
               placeholder="Enter a Text..."
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
               required
             ></textarea>
             <button
               type="submit"
-              className="w-full mt-4 py-2.5 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-400"
+              className="w-full mt-4 py-2.5 text-white bg-blue-600 rounded-lg"
             >
               Process
             </button>
@@ -273,7 +333,7 @@ const NLPinRegionalLanguage = () => {
           <div className="w-full bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-300 text-left">
             <div
               ref={markdownRef}
-              className="whitespace-pre-wrap break-words prose max-w-none text-gray-800 dark:text-gray-200 overflow-hidden"
+              className="whitespace-pre-wrap break-words prose max-w-none text-gray-800 dark:text-gray-200 overflow-hidden text-justify"
             >
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
                 {markdownData}

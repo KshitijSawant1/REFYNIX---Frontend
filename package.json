@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.0",
     "@tailwindcss/vite": "^4.0.14",
     "flowbite": "^3.1.2",
     "flowbite-react": "^0.10.2",

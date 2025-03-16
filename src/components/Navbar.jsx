@@ -110,6 +110,14 @@ const Navbar = () => {
                   Governance
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/agentbuilder"
+                  className="block py-2 px-3 md:p-0 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 dark:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+                >
+                  Agent Builder
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

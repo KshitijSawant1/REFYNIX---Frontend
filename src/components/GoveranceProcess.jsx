@@ -3,33 +3,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import GovProcess from "../assets/Page_Images/GoveranceProcessPageImage.png";
 
-const markdownData = `
-### Web Scraping & Summarization
-
-This AI tool extracts and summarizes web content efficiently. It can scrape data from various sources and generate meaningful summaries.
-
----
-
-## **🔍 Example Output**
-\`\`\`json
-{
-  "title": "Web Scraping & Summarization",
-  "summary": "This AI tool extracts and summarizes web content efficiently.",
-  "url": "https://example.com/article"
-}
-\`\`\`
-
----
-
-### **📌 Key Features**
-- Extracts relevant text from web pages.
-- Summarizes content using AI.
-- Outputs structured data in JSON format.
-
----
-
-💡 *Enhance your workflow with automated web scraping and AI-powered summarization!*
-`;
+const markdownData = ``;
 const GoveranceProcess = () => {
   const [copied, setCopied] = useState(false);
   const markdownRef = useRef(null);
@@ -66,7 +40,7 @@ const GoveranceProcess = () => {
                 </span>
               </h1>
 
-              <p className="text-lg text-gray-600 dark:text-gray-300 mt-4 max-w-2xl">
+              <p className="text-lg text-gray-600 dark:text-gray-300 mt-4 max-w-2xl text-justify">
                 AI for governance process streamlines document analysis by
                 extracting and summarizing key insights from complex governance
                 documents. With AI’s ability to process large volumes of data
@@ -106,12 +80,8 @@ const GoveranceProcess = () => {
                 3
               </span>
               <span className="mt-2">
-                <h3 className="text-xl font-medium">
-                  Generate Summary
-                </h3>
-                <p className="text-sm">
-                  Provides application summary.
-                </p>
+                <h3 className="text-xl font-medium">Generate Summary</h3>
+                <p className="text-sm">Provides application summary.</p>
               </span>
             </li>
           </ol>
@@ -170,6 +140,7 @@ const GoveranceProcess = () => {
               type="button"
               className="inline-flex items-center px-8 py-4 text-lg font-medium text-gray-900 bg-white border border-gray-900 rounded-lg transition duration-300 ease-in-out hover:bg-gray-200 hover:text-black focus:z-10 focus:ring-2 focus:ring-gray-400 focus:bg-gray-200 focus:text-black dark:border-white dark:text-white dark:hover:bg-gray-600 dark:hover:text-white dark:focus:bg-gray-600
     sm:px-6 sm:py-3 sm:text-base md:px-7 md:py-3 md:text-lg lg:px-8 lg:py-4 lg:text-xl"
+              onClick={() => window.location.reload()}
             >
               <svg
                 className="w-7 h-7 text-gray-800 dark:text-white mr-3 sm:w-6 sm:h-6 md:w-6 md:h-6 lg:w-7 lg:h-7"
@@ -183,29 +154,6 @@ const GoveranceProcess = () => {
               </svg>
               Reload
             </button>
-
-            {/* <svg
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g id="SVGRepo_bgCarrier" strokeWidth="1"></g>
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                ></g>
-                <g id="SVGRepo_iconCarrier">
-                  {" "}
-                  <path
-                    d="M21 12C21 16.9706 16.9706 21 12 21C9.69494 21 7.59227 20.1334 6 18.7083L3 16M3 12C3 7.02944 7.02944 3 12 3C14.3051 3 16.4077 3.86656 18 5.29168L21 8M3 21V16M3 16H8M21 3V8M21 8H16"
-                    stroke="#000000"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  ></path>{" "}
-                </g>
-              </svg> */}
           </div>
         </div>
       </section>
