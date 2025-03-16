@@ -13,6 +13,7 @@ import GoveranceProcess from "./components/GoveranceProcess";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Test from "./components/Text";
 import AgentBuilder from "./components/AgentBuilder";
+import { CopilotPopup } from "@copilotkit/react-ui";
 
 function App() {
   return (
@@ -32,6 +33,15 @@ function App() {
           <Route path="/agentbuilder" element={<AgentBuilder />} />
         </Routes>
       </Router>
+      <CopilotPopup
+        instructions={
+          "You are assisting the user as best as you can. Answer in the best way possible given the data you have."
+        }
+        labels={{
+          title: "Popup Assistant",
+          initial: "Need any help?",
+        }}
+      />
     </>
   );
 }
