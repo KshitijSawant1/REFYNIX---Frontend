@@ -1,13 +1,110 @@
 import React, { useState, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import WebScrap from "../assets/Page_Images/WebScrapPageImage.png";
 
-const markdownData = ``;
+const apiKey = "AIzaSyD4rZax_2OFJmxT7BhOXnz8FuDZzwHER6c";
+const firecrawl_api = "fc-14c5e6c8adc043508c40e67ed45ec59a";
+
+const genAI = new GoogleGenerativeAI(apiKey);
+const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+const generationConfig = {
+  temperature: 1,
+  topP: 0.95,
+  topK: 40,
+  maxOutputTokens: 8192,
+  responseMimeType: "text/plain",
+};
+
+// Function to scrape website data
+const scrapeWebsite = async (url) => {
+  try {
+    const options = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${firecrawl_api}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        formats: ["markdown"],
+        onlyMainContent: true,
+        waitFor: 0,
+        mobile: false,
+        skipTlsVerification: false,
+        timeout: 30000,
+        location: { country: "US" },
+        blockAds: true,
+        url: url,
+      }),
+    };
+
+    const response = await fetch(
+      "https://api.firecrawl.dev/v1/scrape",
+      options
+    );
+    if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+    const data = await response.json();
+    return data; // Return the scraped data
+  } catch (error) {
+    console.error("Error scraping website:", error);
+    return null;
+  }
+};
+
+// Function to process the scraped content with Gemini AI
+const processWithGemini = async (textData) => {
+  const chatSession = model.startChat({
+    generationConfig,
+    history: [],
+  });
+
+  const prompt = `
+  format this json code:
+  ${textData}
+  
+  Then leave a line
+  explain the whole json data
+`;
+
+  const result = await chatSession.sendMessage(prompt);
+  return result.response.text();
+};
+
 const WebScrapingAndSummarization = () => {
+  const [websiteUrl, setWebsiteUrl] = useState(""); // Store Website URL
+  const [scrapedData, setScrapedData] = useState(null); // Store Scraped Data
+  const [processedData, setProcessedData] = useState(""); // Store AI Response
+  const [loading, setLoading] = useState(false); // Loading State
   const [copied, setCopied] = useState(false);
+
   const markdownRef = useRef(null);
+
+  const handleProcess = async () => {
+    setLoading(true);
+    setScrapedData(null);
+    setProcessedData("");
+
+    try {
+      console.log("Scraping website...");
+      const scrapedContent = await scrapeWebsite(websiteUrl);
+      setScrapedData(scrapedContent);
+
+      if (scrapedContent) {
+        console.log("Processing with AI...");
+        const processedText = await processWithGemini(
+          JSON.stringify(scrapedContent, null, 2)
+        );
+        setProcessedData(processedText);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setProcessedData("Failed to process data.");
+    }
+    setLoading(false);
+  };
 
   const handleCopy = () => {
     if (markdownRef.current) {
@@ -18,6 +115,7 @@ const WebScrapingAndSummarization = () => {
       setTimeout(() => setCopied(false), 2000);
     }
   };
+
   return (
     <>
       <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 to-transparent dark:from-gray-900">
@@ -108,6 +206,8 @@ const WebScrapingAndSummarization = () => {
               <input
                 type="search"
                 id="search"
+                value={websiteUrl}
+                onChange={(e) => setWebsiteUrl(e.target.value)}
                 className="block w-full p-5 pl-14 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Enter Website URL"
                 required
@@ -121,6 +221,8 @@ const WebScrapingAndSummarization = () => {
               type="button"
               className="inline-flex items-center px-8 py-4 text-lg font-medium text-gray-900 bg-white border border-gray-900 rounded-lg transition duration-300 ease-in-out hover:bg-gray-200 hover:text-black focus:z-10 focus:ring-2 focus:ring-gray-400 focus:bg-gray-200 focus:text-black dark:border-white dark:text-white dark:hover:bg-gray-600 dark:hover:text-white dark:focus:bg-gray-600
   sm:px-6 sm:py-3 sm:text-base md:px-7 md:py-3 md:text-lg lg:px-8 lg:py-4 lg:text-xl"
+              onClick={handleProcess}
+              disabled={loading}
             >
               <svg
                 className="w-6 h-6 text-gray-800 dark:text-white mr-3" // **Added "mr-3" for spacing**
@@ -164,15 +266,24 @@ const WebScrapingAndSummarization = () => {
               Generated Content:
             </span>
           </div>
+          {/* Scraped Data Section */}
+          <div className="container mx-auto max-w-6xl bg-blue-100 dark:bg-gray-800 shadow-lg rounded-lg p-6 mt-10">
+            <h2 className="text-xl font-bold text-blue-800 dark:text-blue-200">
+              Scraped Data:
+            </h2>
+            <pre className="whitespace-pre-wrap break-words text-left">
+              {JSON.stringify(scrapedData, null, 2) || "No data available yet."}
+            </pre>
+          </div>
 
           {/* Render Markdown Output */}
-          <div className="w-full bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-300 text-left">
+          <div className="w-full bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-300 text-justify mt-[1]">
             <div
               ref={markdownRef}
-              className="whitespace-pre-wrap break-words prose max-w-none text-gray-800 dark:text-gray-200 overflow-hidden"
+              className="whitespace-pre-wrap break-words prose max-w-none text-gray-800 dark:text-gray-200"
             >
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {markdownData}
+                {scrapedData?.data?.markdown || "No data available yet."}
               </ReactMarkdown>
             </div>
           </div>

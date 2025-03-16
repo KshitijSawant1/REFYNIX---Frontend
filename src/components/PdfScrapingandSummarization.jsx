@@ -1,9 +1,93 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import PdfScrap from "../assets/Page_Images/PdfScrapPageImage.png";
-const markdownData = ``;
+import remarkGfm from "remark-gfm";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+const apiKey = "AIzaSyD4rZax_2OFJmxT7BhOXnz8FuDZzwHER6c";
+const jina_api_key =
+  "jina_ac2c3bb1706a4d299f8e35050b6d8973jfvgk4BIjBWU3_OXX8e1MuifVEWB";
+
+const genAI = new GoogleGenerativeAI(apiKey);
+const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+const generationConfig = {
+  temperature: 1,
+  topP: 0.95,
+  topK: 40,
+  maxOutputTokens: 8192,
+  responseMimeType: "text/plain",
+};
+
+const extractPDFText = async (pdfUrl) => {
+  return new Promise((resolve, reject) => {
+    const postData = JSON.stringify({ url: pdfUrl });
+
+    const options = {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${jina_api_key}`, // Ensure correct API key
+        "X-No-Cache": "true",
+        "Content-Type": "application/json",
+      },
+      body: postData,
+    };
+
+    fetch("https://r.jina.ai/", options)
+      .then(async (res) => {
+        const contentType = res.headers.get("content-type");
+
+        // ✅ Check if response is markdown or plain text
+        if (contentType && contentType.includes("text/plain")) {
+          return res.text(); // Return raw text
+        } else if (contentType && contentType.includes("application/json")) {
+          return res.json(); // Parse JSON if available
+        } else {
+          throw new Error("Invalid response format from API");
+        }
+      })
+      .then((data) => {
+        // If data is an object (JSON), extract the 'text' property
+        if (typeof data === "object" && data.text) {
+          resolve(data.text);
+        } else if (typeof data === "string") {
+          resolve(data); // Directly return markdown response
+        } else {
+          reject("No text extracted from PDF.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching PDF data:", error);
+        reject(error);
+      });
+  });
+};
+
+const processWithGemini = async (pdfText) => {
+  try {
+    const chatSession = model.startChat({ generationConfig, history: [] });
+
+    const prompt = `
+      **Summarized PDF Data:**
+      ${pdfText}
+
+      **Explanation of PDF Data:**
+      Provide a detailed explanation.
+    `;
+
+    const result = await chatSession.sendMessage(prompt);
+    return result?.response?.text() || "Error: No response from Gemini AI.";
+  } catch (error) {
+    console.error("Error processing text with Gemini AI:", error);
+    return "Error processing text.";
+  }
+};
+
 const PdfScrapingandSummarization = () => {
+  const [pdfUrl, setPdfUrl] = useState(""); // Store PDF URL
+  const [summary, setSummary] = useState(""); // Store AI response
+  const [loading, setLoading] = useState(false); // Loading state
+
   const [copied, setCopied] = useState(false);
   const markdownRef = useRef(null);
 
@@ -16,6 +100,7 @@ const PdfScrapingandSummarization = () => {
       setTimeout(() => setCopied(false), 2000);
     }
   };
+
   return (
     <>
       <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 to-transparent dark:from-gray-900">
@@ -105,10 +190,12 @@ const PdfScrapingandSummarization = () => {
                 </svg>
               </div>
               <input
-                type="search"
-                id="search"
-                className="block w-full p-5 pl-14 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Enter Website URL"
+                type="text"
+                id="pdf-url"
+                value={pdfUrl}
+                onChange={(e) => setPdfUrl(e.target.value)}
+                className="block w-full p-5 pl-14 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50"
+                placeholder="Enter Hosted PDF URL"
                 required
               />
             </div>
@@ -120,6 +207,18 @@ const PdfScrapingandSummarization = () => {
               type="button"
               className="inline-flex items-center px-8 py-4 text-lg font-medium text-gray-900 bg-white border border-gray-900 rounded-lg transition duration-300 ease-in-out hover:bg-gray-200 hover:text-black focus:z-10 focus:ring-2 focus:ring-gray-400 focus:bg-gray-200 focus:text-black dark:border-white dark:text-white dark:hover:bg-gray-600 dark:hover:text-white dark:focus:bg-gray-600
   sm:px-6 sm:py-3 sm:text-base md:px-7 md:py-3 md:text-lg lg:px-8 lg:py-4 lg:text-xl"
+              onClick={async () => {
+                setLoading(true);
+                try {
+                  const extractedText = await extractPDFText(pdfUrl);
+                  const processedText = await processWithGemini(extractedText);
+                  setSummary(processedText);
+                } catch (error) {
+                  console.error(error);
+                  setSummary("Failed to process PDF.");
+                }
+                setLoading(false);
+              }}
             >
               <svg
                 className="w-6 h-6 text-gray-800 dark:text-white mr-3" // **Added "mr-3" for spacing**
@@ -165,13 +264,10 @@ const PdfScrapingandSummarization = () => {
           </div>
 
           {/* Render Markdown Output */}
-          <div className="w-full bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-300 text-left">
-            <div
-              ref={markdownRef}
-              className="whitespace-pre-wrap break-words prose max-w-none text-gray-800 dark:text-gray-200 overflow-hidden"
-            >
+          <div className="w-full bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-300 text-justify mt-4">
+            <div className="whitespace-pre-wrap break-words prose max-w-none text-gray-800 dark:text-gray-200">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {markdownData}
+                {summary || "No data available yet."}
               </ReactMarkdown>
             </div>
           </div>

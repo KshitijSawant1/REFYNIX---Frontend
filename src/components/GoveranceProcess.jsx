@@ -1,11 +1,26 @@
 import React, { useState, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import GovProcess from "../assets/Page_Images/GoveranceProcessPageImage.png";
 
-const markdownData = ``;
+// Initialize AI Model
+const apiKey = "AIzaSyD4rZax_2OFJmxT7BhOXnz8FuDZzwHER6c";
+const genAI = new GoogleGenerativeAI(apiKey);
+const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+const generationConfig = {
+  temperature: 1,
+  topP: 0.95,
+  topK: 40,
+  maxOutputTokens: 8192,
+  responseMimeType: "text/plain",
+};
+
 const GoveranceProcess = () => {
   const [copied, setCopied] = useState(false);
+  const [prompt, setPrompt] = useState(""); // User input
+  const [markdownData, setMarkdownData] = useState(""); // AI response
   const markdownRef = useRef(null);
 
   const handleCopy = () => {
@@ -17,16 +32,44 @@ const GoveranceProcess = () => {
       setTimeout(() => setCopied(false), 2000);
     }
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!prompt) {
+      alert("Please enter a governance-related query.");
+      return;
+    }
+
+    const chatSession = model.startChat({ generationConfig, history: [] });
+
+    try {
+      const result = await chatSession.sendMessage(`
+        Answer the following question with respect to the procedure of the Indian governance for various processes, including applying for documents. Also include the required documents and the number of working days it may take: ${prompt}
+      `);
+
+      const responseText = result?.response?.text();
+      if (!responseText) {
+        throw new Error("Received empty response from API");
+      }
+
+      setMarkdownData(responseText);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      alert("An error occurred while processing your request.");
+    }
+  };
+
   return (
     <>
-      <section className="relative w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-blue-50 to-transparent dark:from-gray-900">
+      <section className="relative w-full min-h-[80vh] flex items-center justify-center bg-gradient-to-b from-blue-50 to-transparent dark:from-gray-900">
         {/* Main Container*/}
         <div className="container mx-auto max-w-6xl bg-white shadow-lg rounded-lg dark:bg-gray-800 p-12 flex flex-col items-center text-center">
           {/* Title Section with Image */}
           <div className="w-full flex flex-col sm:flex-row items-center justify-center text-center sm:text-left space-y-6 sm:space-y-0 sm:space-x-8">
             {/* Image */}
             <img
-              className="h-auto max-w-xs rounded-[5%]" // Rounded border
+              className="h-auto max-w-xs rounded-[5%]"
               src={GovProcess}
               alt="image description"
             />
@@ -36,58 +79,22 @@ const GoveranceProcess = () => {
               <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
                 AI for{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r to-green-600 from-purple-700">
-                  Governace Process
+                  Governance Process
                 </span>
               </h1>
 
               <p className="text-lg text-gray-600 dark:text-gray-300 mt-4 max-w-2xl text-justify">
                 AI for governance process streamlines document analysis by
                 extracting and summarizing key insights from complex governance
-                documents. With AI’s ability to process large volumes of data
-                quickly, the system minimizes manual effort, ensuring accurate
-                and timely processing of governance tasks, improving overall
-                productivity and decision efficiency.
+                documents. It minimizes manual effort, ensuring accurate and
+                timely processing of governance tasks, improving overall
+                productivity and decision-making efficiency.
               </p>
             </div>
           </div>
 
-          {/* Step-by-Step Guide (Now with More Space) */}
-          <ol className="w-full max-w-4xl flex flex-col items-center justify-center space-y-6 sm:flex-row sm:justify-center sm:space-x-12 sm:space-y-0 mt-12">
-            <li className="flex flex-col items-center text-blue-600 dark:text-blue-500 text-center">
-              <span className="flex items-center justify-center w-12 h-12 border border-blue-600 rounded-full text-lg dark:border-blue-500">
-                1
-              </span>
-              <span className="mt-2">
-                <h3 className="text-xl font-medium">Enter User Query </h3>
-                <p className="text-sm">
-                  User asks about passport application details.
-                </p>
-              </span>
-            </li>
-            <li className="flex flex-col items-center text-blue-600 dark:text-blue-500 text-center">
-              <span className="flex items-center justify-center w-12 h-12 border border-blue-600 rounded-full text-lg dark:border-blue-500">
-                2
-              </span>
-              <span className="mt-2">
-                <h3 className="text-xl font-medium">Process eligibility</h3>
-                <p className="text-sm">
-                  AI verifies eligibility and document requirements.
-                </p>
-              </span>
-            </li>
-            <li className="flex flex-col items-center text-blue-600 dark:text-blue-500 text-center">
-              <span className="flex items-center justify-center w-12 h-12 border border-blue-600 rounded-full text-lg dark:border-blue-500">
-                3
-              </span>
-              <span className="mt-2">
-                <h3 className="text-xl font-medium">Generate Summary</h3>
-                <p className="text-sm">Provides application summary.</p>
-              </span>
-            </li>
-          </ol>
-
           {/* Search Input Section */}
-          <form className="w-full max-w-3xl mt-10">
+          <form className="w-full max-w-3xl mt-10" onSubmit={handleSubmit}>
             <div className="relative w-full">
               <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
                 <svg
@@ -109,19 +116,23 @@ const GoveranceProcess = () => {
               <input
                 type="search"
                 id="search"
-                className="block w-full p-5 pl-14 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Enter Goverance Realted Query"
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                className="block w-full p-5 pl-14 text-lg text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
+                placeholder="Enter Governance-Related Query"
                 required
               />
             </div>
           </form>
 
+          {/* Process Button */}
           <div className="flex flex-wrap justify-center mt-6 space-x-4">
             {/* Process Button */}
             <button
               type="button"
               className="inline-flex items-center px-8 py-4 text-lg font-medium text-gray-900 bg-white border border-gray-900 rounded-lg transition duration-300 ease-in-out hover:bg-gray-200 hover:text-black focus:z-10 focus:ring-2 focus:ring-gray-400 focus:bg-gray-200 focus:text-black dark:border-white dark:text-white dark:hover:bg-gray-600 dark:hover:text-white dark:focus:bg-gray-600
   sm:px-6 sm:py-3 sm:text-base md:px-7 md:py-3 md:text-lg lg:px-8 lg:py-4 lg:text-xl"
+              onClick={handleSubmit}
             >
               <svg
                 className="w-6 h-6 text-gray-800 dark:text-white mr-3" // **Added "mr-3" for spacing**
@@ -157,9 +168,10 @@ const GoveranceProcess = () => {
           </div>
         </div>
       </section>
+
       {/* Output Box Section */}
-      <div className="container mx-auto max-w-6xl bg-blue-100 dark:bg-gray-800 shadow-lg rounded-lg p-6 flex flex-col items-center mt-[10px] mb-[10px] text-center">
-        <div className="w-[100%] h-[100%] bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+      <div className="container mx-auto max-w-6xl bg-blue-100 dark:bg-gray-800 shadow-lg rounded-lg p-6 flex flex-col items-center mt-10 text-center">
+        <div className="w-full bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
           <div className="mb-2 flex justify-between items-center">
             <span className="bg-blue-100 text-blue-800 text-2xl font-semibold px-3 py-1 rounded-sm dark:bg-blue-200 dark:text-blue-800">
               Generated Content:
@@ -167,13 +179,13 @@ const GoveranceProcess = () => {
           </div>
 
           {/* Render Markdown Output */}
-          <div className="w-full bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-300 text-left">
+          <div className="w-full bg-gray-50 dark:bg-gray-700 rounded-lg p-4 border border-gray-300 text-justify">
             <div
               ref={markdownRef}
-              className="whitespace-pre-wrap break-words prose max-w-none text-gray-800 dark:text-gray-200 overflow-hidden"
+              className="whitespace-pre-wrap break-words prose max-w-none text-gray-800 dark:text-gray-200"
             >
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {markdownData}
+                {markdownData || "No data available yet."}
               </ReactMarkdown>
             </div>
           </div>
@@ -183,7 +195,7 @@ const GoveranceProcess = () => {
             <button
               onClick={handleCopy}
               type="button"
-              className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-gray-600 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"
+              className="text-gray-900 hover:text-white border border-gray-800 hover:bg-gray-900 font-medium rounded-lg text-sm px-5 py-2.5"
             >
               {copied ? "Copied" : "Copy"}
             </button>
